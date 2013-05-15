@@ -1,0 +1,17 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\CG_GUI3D\Containers.cs">
+    <Files>
+      <File FileName="Assets\CG_GUI3D\BHV_Motion.cs" Line="42" Column="25" />
+      <File FileName="Assets\Demos\ToolPanel.cs" Line="69" Column="1" />
+      <File FileName="Assets\CG_GUI3D\Widgets.cs" Line="51" Column="4" />
+      <File FileName="Assets\CG_GUI3D\Containers.cs" Line="39" Column="5" />
+      <File FileName="Assets\CG_GUI3D\Primitives.cs" Line="20" Column="69" />
+      <File FileName="Assets\CG_GUI3D\CoreDrawer.cs" Line="14" Column="2" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
