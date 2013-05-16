@@ -61,6 +61,19 @@ public class BHV_Motion : MonoBehaviour
 			}
 			
 			
+			//Container Logic (maybe we have to put that in ANOTHER BHV)
+			if( this.targetScreenBoundary.Contains(mousePositionYInverted))
+			{
+				if(  Input.GetMouseButtonUp(0))
+				{	
+					Debug.Log (this.name+" toggle");
+					if(this.SuperObj.SignalDict.ContainsKey("Toggled"))
+						this.SuperObj.SignalDict[ "Toggled" ]();
+				}
+			}
+			
+			
+			
 		}
 	}
 	

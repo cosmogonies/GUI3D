@@ -72,7 +72,7 @@ public class ToolPanel : MonoBehaviour {
 		
 		CG_GUI3D.Containers.HLayout subH2 = new CG_GUI3D.Containers.HLayout("SubLayoutH2",false);
 		
-		CG_GUI3D.Containers.VLayout subV1 = new CG_GUI3D.Containers.VLayout("SubLayoutV1");
+		CG_GUI3D.Containers.VLayout subV1 = new CG_GUI3D.Containers.VLayout("SubLayoutV1",true);
 		
 		
 		CG_GUI3D.Widgets.Button Button_A = new CG_GUI3D.Widgets.Button("subH1_ButtonA");

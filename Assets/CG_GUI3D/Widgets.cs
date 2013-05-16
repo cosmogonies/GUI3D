@@ -17,7 +17,26 @@ namespace CG_GUI3D
 			public enum Signal {};
 			
 			
-			public bool isEnabled = true;
+			//public bool isEnabled = true;
+			
+			 // Fields
+    		public bool _isEnabled= true;
+		    // Properties
+		    public bool isEnabled
+		    {
+		        get
+		        {
+		            return this._isEnabled;
+		        }
+		        set
+		        {
+		            this._isEnabled = value;
+					
+					this.Root.SetActive(value);
+					//this.comp.enabled=value;
+		        }
+		    }
+			
 			
 			//public List<string> SignalList;
 			

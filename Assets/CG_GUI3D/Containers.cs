@@ -21,16 +21,16 @@ namespace CG_GUI3D
 			public bool isCollapsable = true;
 			public bool isCollapsed = false;
 			
-
+			//protected readonly float HEADER_HEIGHT = 25.0f;
+			protected readonly float HEADER_HEIGHT = 25.0f;
 			
 			public List<CG_GUI3D.Widgets.Widget> WidgetList;
 			
-			public void toggle()
-			{}	
-			private void Expand()
-			{}
-			private void Collapse()
-			{}
+			
+			GameObject Gizmo;
+
+			
+
 			
 		    public WidgetContainer(string _Name = "DefaultWidgetContainer",bool _IsCollapsable=true): base(_Name)
 		    {
@@ -40,6 +40,18 @@ namespace CG_GUI3D
 				this.isCollapsable = _IsCollapsable;
 				
 				this.WidgetList = new List<CG_GUI3D.Widgets.Widget>();
+				
+				if(this.isCollapsable)
+				{
+					this.Gizmo = new GameObject(this.Name);
+					this.comp = this.Gizmo.AddComponent<BHV_Motion>() as BHV_Motion;  //TOASK: maybe we can design another BHV, more adapted to containters ?
+					this.comp.SuperObj = this;
+					// Interactive Zone is ONLY Header:
+					this.comp.targetScreenBoundary = this.ScreenPosition;
+					
+					this.connect( "Toggled" , this.toggle );
+				}
+				
 		    }	
 			
 			public void AddWidget(CG_GUI3D.Widgets.Widget _TargetWidget)
@@ -55,8 +67,31 @@ namespace CG_GUI3D
 				Debug.Log ("virtual public void placeContained()");
 			}
 			
-
-			
+			#region COLLAPSING_LOGIC
+			//Collapsing logic:
+			public void toggle()
+			{
+				this.isCollapsed= ! isCollapsed;
+				if(!this.isCollapsed)
+					Expand();
+				else
+					Collapse();
+			}	
+			private void Expand()
+			{
+				for(int i=0;i<this.WidgetList.Count;i++)
+				{
+					this.WidgetList[i].isEnabled =true;
+				}				
+			}
+			private void Collapse()
+			{
+				for(int i=0;i<this.WidgetList.Count;i++)
+				{
+					this.WidgetList[i].isEnabled =false;
+				}
+			}
+			#endregion
 			
 		}
 		
@@ -87,6 +122,15 @@ namespace CG_GUI3D
 			}
 			
 			
+			//TODO: META_DATA to add later
+			
+			//Maybe the DIRECTION OR READING (actually we suppose Left=> Right, THEN: Up=> Down
+			//just a matter of iteration from widgetList...
+			
+			
+			
+			
+			
 		}			
 		
 		
@@ -97,25 +141,36 @@ namespace CG_GUI3D
 			
 			override public  void placeContained()
 			{
-				int slice;
+				int AvailableSpace = 0;
+				int slice=0;
+				
+				float delta = 0.0f;
+				if(this.isCollapsable)
+				{
+					delta= this.HEADER_HEIGHT;
+					this.comp.targetScreenBoundary.height = delta;
+				}
+				
+				AvailableSpace = (int)this.ScreenPosition.width - (int)delta;
+				
+				
 				if(this.WidgetList.Count==0)
-					slice = (int)this.ScreenPosition.width;
+					slice = AvailableSpace;
 				else
-					slice = (int)System.Math.Round( (float)this.ScreenPosition.width / this.WidgetList.Count );
+					slice = (int)System.Math.Round( (float)AvailableSpace / this.WidgetList.Count );
 				
 				//foreach(CG_GUI3D.Widgets.Widget currentWidget in this.WidgetList)
 				for(int i=0;i<this.WidgetList.Count;i++)
 				{
 					Rect newPosition = this.ScreenPosition;
 					newPosition.width = slice;
-					newPosition.x = this.ScreenPosition.x+(i*slice);
+					newPosition.x = this.ScreenPosition.x+delta+(i*slice);
 					newPosition.y = this.ScreenPosition.y;
-					//currentWidget.resize(slice, (int)this.ScreenPosition.height);
 					this.WidgetList[i].resize(newPosition);
 					
-
+					
 					if(typeof(CG_GUI3D.Containers.WidgetContainer).IsAssignableFrom(this.WidgetList[i].GetType()))
-					{
+					{	// current widget is a container-heir, so we call its own placement logic:
 						CG_GUI3D.Containers.WidgetContainer cur = this.WidgetList[i] as CG_GUI3D.Containers.WidgetContainer;
 						cur.placeContained();
 					}						
@@ -134,11 +189,22 @@ namespace CG_GUI3D
 						
 			override public void placeContained()
 			{
-				int slice;
+				int AvailableSpace = 0;
+				int slice=0;
+				
+				float deltaHeader = 0.0f;
+				if(this.isCollapsable)
+				{
+					deltaHeader=this.HEADER_HEIGHT;				
+					this.comp.targetScreenBoundary.height = deltaHeader;
+				}
+				AvailableSpace = (int)this.ScreenPosition.height - (int)deltaHeader;
+				
+				
 				if(this.WidgetList.Count==0)
-					slice = (int)this.ScreenPosition.height;
+					slice = AvailableSpace;
 				else
-					slice = (int)System.Math.Round( (float)this.ScreenPosition.height / this.WidgetList.Count );				
+					slice = (int)System.Math.Round( (float)AvailableSpace / this.WidgetList.Count );				
 								
 				//foreach(CG_GUI3D.Widgets.Widget currentWidget in this.WidgetList)
 				
@@ -148,7 +214,7 @@ namespace CG_GUI3D
 					Rect newPosition = this.ScreenPosition;
 					newPosition.height = slice;
 					newPosition.x = this.ScreenPosition.x;
-					newPosition.y = this.ScreenPosition.y+(i*slice);
+					newPosition.y = this.ScreenPosition.y+deltaHeader+(i*slice);
 					//currentWidget.resize(slice, (int)this.ScreenPosition.height);
 					this.WidgetList[i].resize(newPosition);
 					
