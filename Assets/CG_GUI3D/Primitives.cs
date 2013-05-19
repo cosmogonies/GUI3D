@@ -25,6 +25,12 @@ namespace CG_GUI3D
 			
 		}
 		
+		public class Skin
+		{
+			
+		}
+		
+		
 	}
 	
 }

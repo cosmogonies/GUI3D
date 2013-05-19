@@ -12,7 +12,7 @@ namespace CG_GUI3D
 	{
 		public delegate void MyFunction();
 
-		public class Widget 
+		public abstract class Widget 
 		{
 			public enum Signal {};
 			
@@ -20,7 +20,7 @@ namespace CG_GUI3D
 			//public bool isEnabled = true;
 			
 			 // Fields
-    		public bool _isEnabled= true;
+    		private bool _isEnabled= true;
 		    // Properties
 		    public bool isEnabled
 		    {
@@ -50,40 +50,45 @@ namespace CG_GUI3D
 			
 			public BHV_Motion comp = null;
 			
-			//public int WidthOnScreen;
-			//public int HeightOnScreen;
-			public Rect ScreenPosition;
+			//public Rect ScreenPosition;
+			
+    		protected Rect _ScreenPosition;
+		    //public Rect ScreenPosition
+			virtual public Rect ScreenPosition
+		    {
+		        get
+		        {
+		            return this._ScreenPosition;
+		        }
+		        set
+		        {	//could be overriden in containter
+		            this._ScreenPosition = value;
+					//when updated, we have to be set:
+					this.resize();
+		        }
+		    }
+			
 			
 			public GameObject Root;
-			
-			//private void aDelegate();
-			
+					
 		    public Widget(string _Name)
 		    {
 				this.Name = _Name;
 				
-				//SignalDict = new Dictionary<Signal, System.Delegate>();
-				//SignalDict = new Dictionary<string, System.Delegate>();
-				//SignalList= new List<string>();
 				SignalDict = new Dictionary<string, MyFunction>();
 		    }			
 			
-			//public void resize(int _SizeX, int Size_Y)
+
 			public void resize(Rect _TargetScreenBoundary)
 			{
 				this.ScreenPosition = _TargetScreenBoundary;
-				//all the fuck is here
-				//Vector3 origin = UnityEngine.Camera.mainCamera.WorldToScreenPoint(Root.transform.position);
-				//Maybe be here we have to twist Y axis right ?
-				
-				//Rect boundary = new Rect(origin.x, origin.y, _SizeX, Size_Y);
-				
-				//this.comp.targetScreenBoundary = boundary;
+				resize();
+			}
+			public void resize()
+			{
 				if(this.comp != null)
 				{	//Containers have no gameobject..
-					this.comp.targetScreenBoundary = _TargetScreenBoundary;
-					//this.comp.isPositionStable = false;
-					//this.comp.isScaleStable = false;
+					this.comp.targetScreenBoundary = ScreenPosition;
 					this.comp.Positionize();
 				}
 			}

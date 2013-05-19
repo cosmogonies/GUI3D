@@ -13,7 +13,7 @@ namespace CG_GUI3D
 	{
 		
 		//must be a virtual I think
-		public class WidgetContainer : CG_GUI3D.Widgets.Widget
+		public abstract class WidgetContainer : CG_GUI3D.Widgets.Widget
 		{
 			//readonly bool isCollapsed= false;
 			//public bool isCollapsed { get;}
@@ -26,12 +26,8 @@ namespace CG_GUI3D
 			
 			public List<CG_GUI3D.Widgets.Widget> WidgetList;
 			
-			
 			GameObject Gizmo;
-
-			
-
-			
+	
 		    public WidgetContainer(string _Name = "DefaultWidgetContainer",bool _IsCollapsable=true): base(_Name)
 		    {
 				this.Name= _Name;
@@ -60,12 +56,30 @@ namespace CG_GUI3D
 			}
 			
 			
-			//virtual protected void placeContained()
+			abstract public  void placeContained();
+			/*
 			virtual public void placeContained()
 			{ // this method move all contained widgets inside.
 				//Debug.Log (this.Name);
 				Debug.Log ("virtual public void placeContained()");
 			}
+			*/
+			
+		    override public Rect ScreenPosition
+		    {
+		        get
+		        {
+		            return this._ScreenPosition;
+		        }
+		        set
+		        {	//could be overriden in containter
+		            this._ScreenPosition = value;
+					//when updated, we have to be set:
+					//this.resize(this._ScreenPosition);
+					this.resize();
+					this.placeContained();
+		        }
+		    }			
 			
 			#region COLLAPSING_LOGIC
 			//Collapsing logic:
@@ -95,8 +109,10 @@ namespace CG_GUI3D
 			
 		}
 		
+		//Maybe, MainWindow is useless (could be any type of top-elvel container).
 		
-		public class MainWindow : WidgetContainer
+		//public class MainWindow : WidgetContainer
+		public class MainWindow
 		{
 			public CG_GUI3D.Containers.WidgetContainer MainHost;
 			
@@ -106,28 +122,27 @@ namespace CG_GUI3D
 				MainWindow( (int)Math.Round(UnityEngine.Screen.width*_PercentX), (int)Math.Round(UnityEngine.Screen.width*_PercentY));
 			}
 			*/		
-			public MainWindow(Rect _ScreenPosition, WidgetContainer _MainHost ) :base("MainWindow")
+			
+			//public MainWindow(Rect _ScreenPosition, WidgetContainer _MainHost ) :base("MainWindow")
+			public MainWindow(Rect _ScreenPosition, WidgetContainer _MainHost )
 			{
 				//this.WidthOnScreen = _SizeX;
 				//this.HeightOnScreen = _SizeY;
-				this.ScreenPosition = _ScreenPosition;
-					
+				//this.ScreenPosition = _ScreenPosition;
 					
 				this.MainHost = _MainHost;
 				//this.MainHost.WidthOnScreen = this.WidthOnScreen;
 				//this.MainHost.HeightOnScreen = this.HeightOnScreen;
-				this.MainHost.ScreenPosition = this.ScreenPosition;
+				this.MainHost.ScreenPosition = _ScreenPosition;
 				
 				this.MainHost.placeContained();
 			}
 			
-			
+				
 			//TODO: META_DATA to add later
 			
 			//Maybe the DIRECTION OR READING (actually we suppose Left=> Right, THEN: Up=> Down
 			//just a matter of iteration from widgetList...
-			
-			
 			
 			
 			

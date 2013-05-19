@@ -7,22 +7,35 @@ using CG_GUI3D.Primitives;
 using CG_GUI3D.Widgets;
 
 
-public class ToolPanel : MonoBehaviour {
-
-	// Use this for initialization
+public class ToolPanel : MonoBehaviour 
+{
+	//public AnimationCurve test;
+	private CG_GUI3D.Containers.MainWindow theToolPanel;
+	
+	public Rect SizeUI= new Rect(20,50,800,600);
+	
 	void Start () 
 	{
 		//createDemo01();
 		//createDemo02();
-		createDemo03();
+		this.theToolPanel = createDemo03();
 		
 	}
 	
-	
-	
-	// Update is called once per frame
 	void Update () 
 	{
+		//Demonstration of how resize at runtime :
+		//this.theToolPanel.MainHost.ScreenPosition = this.SizeUI;	
+	}
+	
+	void OnGUI()
+	{
+		float GUISize = 25.0f;
+		//this.SizeUI.x = GUI.HorizontalSlider( new Rect( 0,0,GUISize*2,GUISize ), this.SizeUI.x, 0.0f, Screen.width );
+		//this.SizeUI.y = GUI.VerticalSlider( new Rect( 0,GUISize,GUISize,GUISize*2 ), this.SizeUI.y, 0.0f, Screen.height );
+
+		this.SizeUI.width = GUI.HorizontalSlider( new Rect( 0,0,GUISize*2,GUISize ), this.SizeUI.width, 0.0f, Screen.width );
+		this.SizeUI.height = GUI.VerticalSlider( new Rect( 0,GUISize,GUISize,GUISize*2 ), this.SizeUI.height, 0.0f, Screen.height );
 	
 	}
 	
@@ -31,7 +44,6 @@ public class ToolPanel : MonoBehaviour {
 	{
 		//create main Layout
 		CG_GUI3D.Containers.VLayout MainLayout = new CG_GUI3D.Containers.VLayout();
-		
 		
 		// create a button
 		CG_GUI3D.Widgets.Button Button_A = new CG_GUI3D.Widgets.Button("test");
@@ -64,7 +76,7 @@ public class ToolPanel : MonoBehaviour {
 		CG_GUI3D.Containers.MainWindow MainWindow = new CG_GUI3D.Containers.MainWindow(new Rect(50,50,450,250),MainLayout);
 	}
 	
-	public void createDemo03()
+	public CG_GUI3D.Containers.MainWindow createDemo03()
 	{
 		CG_GUI3D.Containers.VLayout MainLayout = new CG_GUI3D.Containers.VLayout("MainLayout",false);
 		
@@ -106,7 +118,8 @@ public class ToolPanel : MonoBehaviour {
 		MainLayout.AddWidget(subH1);
 		MainLayout.AddWidget(subH2);
 		
-		CG_GUI3D.Containers.MainWindow MainWindow = new CG_GUI3D.Containers.MainWindow(new Rect(20,50,800,600),MainLayout);
+		CG_GUI3D.Containers.MainWindow MainWindow = new CG_GUI3D.Containers.MainWindow(this.SizeUI,MainLayout);
+		return MainWindow;
 	}	
 	
 	
