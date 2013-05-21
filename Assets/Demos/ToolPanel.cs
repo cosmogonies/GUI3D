@@ -14,6 +14,21 @@ public class ToolPanel : MonoBehaviour
 	
 	public Rect SizeUI= new Rect(20,50,800,600);
 	
+	
+	public GameObject ButtonShape;
+	
+	//public GameObject[] ButtonShapes;
+	//public bool[] ButtonShapes_Scalability;
+	
+	public GameObject ChoiceBoxShape;
+	public GameObject CheckBoxShape;
+	
+	
+	
+	
+	
+	
+	
 	void Start () 
 	{
 		//createDemo01();
@@ -25,7 +40,7 @@ public class ToolPanel : MonoBehaviour
 	void Update () 
 	{
 		//Demonstration of how resize at runtime :
-		//this.theToolPanel.MainHost.ScreenPosition = this.SizeUI;	
+		this.theToolPanel.MainHost.ScreenPosition = this.SizeUI;  // TODO: with this, hover animation is glitched. 	
 	}
 	
 	void OnGUI()
@@ -89,18 +104,18 @@ public class ToolPanel : MonoBehaviour
 		
 		CG_GUI3D.Widgets.Button Button_A = new CG_GUI3D.Widgets.Button("subH1_ButtonA");
 		subH1.AddWidget(Button_A);
-		CG_GUI3D.Widgets.Button Button_B = new CG_GUI3D.Widgets.Button("subH1_ButtonB");
+		CG_GUI3D.Widgets.Button Button_B = new CG_GUI3D.Widgets.Button("subH1_ButtonB", this.ButtonShape);
 		subH1.AddWidget(Button_B);
-		CG_GUI3D.Widgets.Button Button_C = new CG_GUI3D.Widgets.Button("subH1_ButtonC");
+		CG_GUI3D.Widgets.Button Button_C = new CG_GUI3D.Widgets.Button("subH1_ButtonC", this.CheckBoxShape);
 		subH1.AddWidget(Button_C);
 
-		CG_GUI3D.Widgets.Button Button_Menu1 = new CG_GUI3D.Widgets.Button("Menu_1");
+		CG_GUI3D.Widgets.Button Button_Menu1 = new CG_GUI3D.Widgets.Button("Menu_1", this.ButtonShape);
 		subV1.AddWidget(Button_Menu1);
-		CG_GUI3D.Widgets.Button Button_Menu2 = new CG_GUI3D.Widgets.Button("Menu_2");
+		CG_GUI3D.Widgets.Button Button_Menu2 = new CG_GUI3D.Widgets.Button("Menu_2", this.ButtonShape);
 		subV1.AddWidget(Button_Menu2);
-		CG_GUI3D.Widgets.Button Button_Menu3 = new CG_GUI3D.Widgets.Button("Menu_3");
+		CG_GUI3D.Widgets.Button Button_Menu3 = new CG_GUI3D.Widgets.Button("Menu_3", this.ButtonShape);
 		subV1.AddWidget(Button_Menu3);
-		CG_GUI3D.Widgets.Button Button_Menu4 = new CG_GUI3D.Widgets.Button("Menu_4");
+		CG_GUI3D.Widgets.Button Button_Menu4 = new CG_GUI3D.Widgets.Button("Menu_4", this.ChoiceBoxShape);
 		subV1.AddWidget(Button_Menu4);
 
 		subH2.AddWidget(subV1);

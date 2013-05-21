@@ -44,12 +44,12 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CG_GUI3D\BHV_Motion.cs" />
-     <Compile Include="Assets\CG_GUI3D\Containers.cs" />
-     <Compile Include="Assets\CG_GUI3D\CoreDrawer.cs" />
-     <Compile Include="Assets\CG_GUI3D\Primitives.cs" />
-     <Compile Include="Assets\CG_GUI3D\Widgets.cs" />
      <Compile Include="Assets\Demos\ToolPanel.cs" />
+     <Compile Include="Assets\Logic\CG_GUI3D\BHV_Motion.cs" />
+     <Compile Include="Assets\Logic\CG_GUI3D\Containers.cs" />
+     <Compile Include="Assets\Logic\CG_GUI3D\CoreDrawer.cs" />
+     <Compile Include="Assets\Logic\CG_GUI3D\Primitives.cs" />
+     <Compile Include="Assets\Logic\CG_GUI3D\Widgets.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -26,7 +26,7 @@ namespace CG_GUI3D
 			
 			public List<CG_GUI3D.Widgets.Widget> WidgetList;
 			
-			GameObject Gizmo;
+			//GameObject Gizmo;
 	
 		    public WidgetContainer(string _Name = "DefaultWidgetContainer",bool _IsCollapsable=true): base(_Name)
 		    {
@@ -39,8 +39,8 @@ namespace CG_GUI3D
 				
 				if(this.isCollapsable)
 				{
-					this.Gizmo = new GameObject(this.Name);
-					this.comp = this.Gizmo.AddComponent<BHV_Motion>() as BHV_Motion;  //TOASK: maybe we can design another BHV, more adapted to containters ?
+					this.Gizmo3D = new GameObject(this.Name);
+					this.comp = this.Gizmo3D.AddComponent<BHV_Motion>() as BHV_Motion;  //TOASK: maybe we can design another BHV, more adapted to containters ?
 					this.comp.SuperObj = this;
 					// Interactive Zone is ONLY Header:
 					this.comp.targetScreenBoundary = this.ScreenPosition;

@@ -12,23 +12,31 @@ namespace CG_GUI3D
 		public class SampleRectangle
 		{
 			Transform RootTransform;
-			//List<GameObject> Shapelist;
 			
-		    //public SampleRectangle(): base(PrimitiveType.Cube)
 			public SampleRectangle()
 		    {
 				GameObject temp = GameObject.CreatePrimitive(PrimitiveType.Cube);	
-				
 				this.RootTransform = temp.transform;
-				
 		    }			
-			
 		}
+		
 		
 		public class Skin
 		{
+		/*	
+			GameObject[] ButtonShapes;
+			bool[] ButtonShapes_Scalability;
 			
+			GameObject[] ChoiceShapes;
+			bool[] ChoiceShapes_Scalability;
+			
+			GameObject[] CheckShapes;
+			bool[] CheckShapes_Scalability;			
+		*/	
 		}
+		
+		
+		
 		
 		
 	}

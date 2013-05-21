@@ -32,7 +32,7 @@ namespace CG_GUI3D
 		        {
 		            this._isEnabled = value;
 					
-					this.Root.SetActive(value);
+					this.Gizmo3D.SetActive(value);
 					//this.comp.enabled=value;
 		        }
 		    }
@@ -48,7 +48,7 @@ namespace CG_GUI3D
 			public string Name="DefaultName";
 			public string Label="DefaultLabel";
 			
-			public BHV_Motion comp = null;
+			
 			
 			//public Rect ScreenPosition;
 			
@@ -69,7 +69,9 @@ namespace CG_GUI3D
 		    }
 			
 			
-			public GameObject Root;
+			//public GameObject Root;
+			public BHV_Motion comp = null;
+			public GameObject Gizmo3D;
 					
 		    public Widget(string _Name)
 		    {
@@ -133,23 +135,35 @@ namespace CG_GUI3D
 				//this.SignalList.Add("Pressed");
 				
 				//_Root = new CG_GUI3D.Primitives.SampleRectangle();
-				Root = GameObject.CreatePrimitive(PrimitiveType.Cube);
-				Root.name=this.Name;
-				this.comp = this.Root.AddComponent<BHV_Motion>() as BHV_Motion;
+				this.Gizmo3D = GameObject.CreatePrimitive(PrimitiveType.Cube);
+				this.Gizmo3D.name=this.Name;
+				this.comp = this.Gizmo3D.AddComponent<BHV_Motion>() as BHV_Motion;
 				//this.comp.isPositionStable = false;
 				//his.comp.isScaleStable = false;
 				
 				this.comp.SuperObj = this;
 			}
 			
+			public Button(string _Name, GameObject _Shape):base(_Name)
+		    {
 
+				//this.Gizmo3D = GameObject.CreatePrimitive(PrimitiveType.Cube);
+				this.Gizmo3D = GameObject.Instantiate(_Shape) as GameObject;
+				this.Gizmo3D.transform.Rotate(0.0f,180.0f,0.0f);
+				
+				this.Gizmo3D.name=this.Name;
+				this.comp = this.Gizmo3D.AddComponent<BHV_Motion>() as BHV_Motion;
+				//this.comp.isPositionStable = false;
+				//his.comp.isScaleStable = false;
+				
+				this.comp.SuperObj = this;
+			}
 			
 						
 		}
 		
 		public class ComboBox: Widget 
 		{
-			
 			public List<string> ChoiceList;
 					
 		    public ComboBox(string _Name):base(_Name)
@@ -157,8 +171,20 @@ namespace CG_GUI3D
 				//this.SignalList.Add("IndexChanged");
 				ChoiceList= new List<string>();
 		    }				
-			
 		}		
+
+		public class CheckBox: Widget 
+		{
+			//public List<string> ChoiceList;
+			bool isChecked=true;
+					
+		    public CheckBox(string _Name):base(_Name)
+		    {
+				//this.SignalList.Add("IndexChanged");
+				//ChoiceList= new List<string>();
+		    }				
+			
+		}				
 		
 		
 	}
