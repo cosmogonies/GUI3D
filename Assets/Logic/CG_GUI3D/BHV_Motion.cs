@@ -111,7 +111,8 @@ public class BHV_Motion : MonoBehaviour
 			MeshFilter currentMeshFilter = all[i];
 			if(currentMeshFilter.name.EndsWith("_static"))  // Find a better way to tag a mesh as "static"
 			{
-				currentMeshFilter.transform.localScale = new Vector3(1.0f,_Value.y,1.0f);	
+				//currentMeshFilter.transform.localScale = new Vector3(1.0f,_Value.y,1.0f);	
+				currentMeshFilter.transform.localScale = new Vector3(1.0f,1.0f,1.0f);	
 			}
 		}
 		

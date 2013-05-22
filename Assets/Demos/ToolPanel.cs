@@ -120,7 +120,7 @@ public class ToolPanel : MonoBehaviour
 
 		subH2.AddWidget(subV1);
 		
-		CG_GUI3D.Widgets.Button Button_X = new CG_GUI3D.Widgets.Button("Viewport");
+		CG_GUI3D.Widgets.Button Button_X = new CG_GUI3D.Widgets.Button("Viewport",this.ChoiceBoxShape);
 		subH2.AddWidget(Button_X);
 		
 
